@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# หมวดหมู่เมนู เช่น อาหารจานเดียว เครื่องดื่ม ฯลฯ
+# หมวดหมู่เมนู เช่น อาหารจานเดียว เครื่องดื่ม 
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
