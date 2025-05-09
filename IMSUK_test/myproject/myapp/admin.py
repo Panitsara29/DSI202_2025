@@ -1,3 +1,4 @@
+#admin.py
 from django.contrib import admin
 # นำเข้า models ที่ใช้
 from .models import (
@@ -29,7 +30,7 @@ class MenuItemAdmin(admin.ModelAdmin):
 
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user', 'menu_item', 'quantity']
+    list_display = ['id', 'session_key', 'menu_item', 'quantity']
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem

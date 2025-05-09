@@ -1,3 +1,4 @@
+#models.py 
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -38,7 +39,7 @@ class MenuItem(models.Model):
 
 # รายการในรถเข็น
 class CartItem(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    session_key = models.CharField(max_length=40, null=True, blank=True)
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 

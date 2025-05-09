@@ -1,3 +1,4 @@
+#urls.py
 from django.urls import path
 from .views import (
     home,
@@ -6,6 +7,8 @@ from .views import (
     add_to_cart,
     view_cart,
     remove_from_cart,
+    place_order, 
+    order_success
 )
 
 urlpatterns = [
@@ -17,6 +20,8 @@ urlpatterns = [
     path('cart/', view_cart, name='view_cart'),
     path('cart/add/<int:menu_item_id>/', add_to_cart, name='add_to_cart'),
     path('cart/remove/<int:item_id>/', remove_from_cart, name='remove_from_cart'),
+    path('order/place/', place_order, name='place_order'),
+    path('order/success/<int:order_id>/', order_success, name='order_success'),
 ]
 
 
