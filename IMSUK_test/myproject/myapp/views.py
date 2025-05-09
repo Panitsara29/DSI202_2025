@@ -48,7 +48,7 @@ def add_to_cart(request, menu_item_id):
     messages.success(request, f'เพิ่ม {menu_item.name} ลงในรถเข็นแล้ว')
     return redirect('menu_list')  # หรือ redirect ไปยัง menu_detail
 
-# 🛒 แสดงรถเข็น
+# 🛒 แสดงรถเข็นสินค้า
 @login_required
 def view_cart(request):
     cart_items = CartItem.objects.filter(user=request.user)
