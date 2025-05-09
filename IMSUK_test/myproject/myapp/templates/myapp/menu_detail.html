@@ -1,0 +1,68 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}{{ menu_item.name }} | รายละเอียดเมนู | IMSUK{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- รูปภาพเมนู -->
+        {% if menu_item.image %}
+            <img src="{{ menu_item.image.url }}" alt="{{ menu_item.name }}" class="w-full h-80 object-cover rounded-xl shadow-md border border-green-100">
+        {% else %}
+            <div class="w-full h-80 bg-gray-100 flex items-center justify-center text-gray-500 rounded-xl shadow">
+                ไม่มีรูปภาพ
+            </div>
+        {% endif %}
+
+        <!-- ข้อมูลเมนู -->
+        <div class="flex flex-col justify-between">
+            <div>
+                <h1 class="text-3xl font-extrabold text-green-700 mb-2">{{ menu_item.name }}</h1>
+                <p class="text-sm text-gray-500 mb-2">
+                    📁 <span class="font-medium">{{ menu_item.category.name }}</span> |
+                    🏪 <span class="font-medium">{{ menu_item.restaurant.name }}</span>
+                </p>
+                <p class="text-lg font-semibold text-gray-800 mb-2">💸 ราคา: ฿{{ menu_item.price }}</p>
+
+                <p class="text-md text-gray-700 mb-3">
+                    <strong>สถานะ:</strong>
+                    {% if menu_item.is_available %}
+                        <span class="text-green-600 font-medium">พร้อมให้สั่งซื้อ</span>
+                    {% else %}
+                        <span class="text-red-600 font-medium">สินค้าหมด</span>
+                    {% endif %}
+                </p>
+
+                <p class="text-md text-gray-700 mb-4"><strong>รายละเอียด:</strong> {{ menu_item.description }}</p>
+
+                {% if menu_item.allergens.exists %}
+                    <p class="text-sm text-red-500 mb-3">
+                        ⚠️ วัตถุดิบที่อาจแพ้:
+                        {% for allergen in menu_item.allergens.all %}
+                            <span class="inline-block bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-semibold mr-1">
+                                {{ allergen.name }}
+                            </span>
+                        {% endfor %}
+                    </p>
+                {% endif %}
+            </div>
+
+            {% if menu_item.is_available %}
+                <!-- ปุ่มเพิ่มลงรถเข็น -->
+                <form action="{% url 'add_to_cart' menu_item.id %}" method="post" class="mt-6">
+                    {% csrf_token %}
+                    <button type="submit"
+                            class="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 px-6 rounded-lg transition w-full text-lg">
+                        🛒 เพิ่มลงรถเข็น
+                    </button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- ปุ่มกลับ -->
+    <div class="mt-10 text-center">
+        <a href="{% url 'menu_list' %}" class="text-green-600 hover:underline text-sm">← กลับไปหน้าเมนูอาหาร</a>
+    </div>
+</div>
+{% endblock %}
