@@ -42,3 +42,9 @@ Copy
 Edit
 git clone https://github.com/yourusername/imsuk.git
 cd imsuk
+
+เข้าใช้งาน
+
+หน้าแรก: http://localhost:8000
+
+หน้าแอดมิน: http://localhost:8000/admin
