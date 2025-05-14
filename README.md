@@ -69,4 +69,4 @@ IMSUK (อิ่มสุข) คือเว็บแอปพลิเคช�
 #### 1. โคลน Repository:
 
 ```bash
-git clone https://github.com/yourusername/dsi321.git
+git clone https://github.com/Panitsara29/DSI202_2025.git
