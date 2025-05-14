@@ -1,0 +1,36 @@
+/* 🌿 ปุ่มเขียวแทน success */
+.btn-success {
+    background-color: #66bb6a !important;
+    border-color: #66bb6a !important;
+}
+.btn-success:hover {
+    background-color: #4caf50 !important;
+}
+
+/* 💗 ปุ่มชมพูแทน danger */
+.btn-danger {
+    background-color: #ec407a !important;
+    border-color: #ec407a !important;
+}
+.btn-danger:hover {
+    background-color: #d81b60 !important;
+}
+
+/* 🌸 สีลิงก์และไอคอน */
+a {
+    color: #ec407a;
+}
+a:hover {
+    color: #c2185b;
+}
+
+/* 🧼 ฟอนต์เนียน */
+body {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+/* 🌀 Logo ขนาดเล็กใน sidebar */
+.brand-link img {
+    height: 40px !important;
+    object-fit: contain;
+}

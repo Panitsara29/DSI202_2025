@@ -1,0 +1,145 @@
+{% extends 'myapp/base.html' %}
+{% block title %}คำสั่งซื้อของฉัน{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto mt-10">
+    <h2 class="text-2xl font-bold mb-6">คำสั่งซื้อของฉัน</h2>
+
+    {% if orders %}
+        {% for order in orders %}
+            <div class="mb-6 p-4 border rounded-lg shadow bg-white">
+                <h3 class="font-semibold text-lg mb-2">ออเดอร์ #{{ order.id }} | {{ order.created_at|date:"d M Y H:i" }}</h3>
+                
+            
+                <div class="relative flex justify-between items-center w-full px-4 py-10">
+                    <!-- เส้นพาดตรงกลางไอคอน -->
+                    <div class="absolute top-[95px] left-[12%] right-[12%] h-1 bg-gray-200 z-0"></div>
+                    {% with current=order.status %}
+
+                    <!-- STEP 1: รอยืนยัน -->
+                    <div class="flex flex-col items-center w-1/5 z-10 text-center">
+                        <div class="text-3xl mb-2
+                            {% if current == 'pending' %} text-green-500
+                            {% elif current in 'paid preparing delivering completed' %} text-gray-800
+                            {% else %} text-gray-400 {% endif %}">
+                            <i class="fi fi-rr-clock"></i>
+                        </div>
+
+                        <div class="w-5 h-5 flex items-center justify-center rounded-full border-2 
+                        {% if current == 'pending' %} border-green-500 bg-green-500 text-white scale-105 shadow-md
+                        {% elif current in 'paid preparing delivering completed' %} bg-gray-800 text-white border-gray-800
+                        {% else %} border-gray-300 bg-white text-gray-400 {% endif %}">
+                        {% if current in 'paid preparing delivering completed' %}
+                            <i class="fi fi-rr-check text-xs"></i>
+                        {% elif current == 'pending' %}
+                            <div class="w-2 h-2 rounded-full bg-white animate-ping"></div>
+                        {% endif %}
+                        </div>
+                        <span class="mt-2 text-xs sm:text-sm font-medium 
+                        {% if current == 'pending' %}text-green-600 font-semibold
+                        {% elif current in 'paid preparing delivering completed' %}text-gray-800
+                        {% else %}text-gray-400 {% endif %}">รอยืนยัน</span>
+                    </div>
+
+                    <!-- STEP 2: ชำระเงิน -->
+                    <div class="flex flex-col items-center w-1/5 z-10 text-center">
+                        <div class="text-3xl
+                            <div class="text-3xl mb-2
+                                {% if current == 'pending' %} text-green-500
+                                {% elif current in 'paid preparing delivering completed' %} text-gray-800
+                                {% else %} text-gray-400 {% endif %}">
+                                <i class="fi fi-rr-credit-card"></i>
+                            </div>
+                        
+                        
+                        <div class="w-5 h-5 flex items-center justify-center rounded-full border-2 
+                        {% if current == 'paid' %} border-green-500 bg-green-500 text-white scale-105 shadow-md
+                        {% elif current in 'preparing delivering completed' %} bg-gray-800 text-white border-gray-800
+                        {% else %} border-gray-300 bg-white text-gray-400 {% endif %}">
+                        {% if current in 'preparing delivering completed' %}
+                            <i class="fi fi-rr-check text-xs"></i>
+                        {% elif current == 'paid' %}
+                            <div class="w-2 h-2 rounded-full bg-white animate-ping"></div>
+                        {% endif %}
+                        </div>
+                        <span class="mt-2 text-xs sm:text-sm font-medium 
+                        {% if current == 'paid' %}text-green-600 font-semibold
+                        {% elif current in 'preparing delivering completed' %}text-gray-800
+                        {% else %}text-gray-400 {% endif %}">ชำระเงิน</span>
+                    </div>
+
+                    <!-- STEP 3: เตรียมอาหาร -->
+                    <div class="flex flex-col items-center w-1/5 z-10 text-center">
+                        <div class="text-3xl text-gray-600 mb-2"><i class="fi fi-rr-hat-chef"></i></div>
+                        <div class="w-5 h-5 flex items-center justify-center rounded-full border-2 
+                        {% if current == 'preparing' %} border-green-500 bg-green-500 text-white scale-105 shadow-md
+                        {% elif current in 'delivering completed' %} bg-gray-800 text-white border-gray-800
+                        {% else %} border-gray-300 bg-white text-gray-400 {% endif %}">
+                        {% if current in 'delivering completed' %}
+                            <i class="fi fi-rr-check text-xs"></i>
+                        {% elif current == 'preparing' %}
+                            <div class="w-2 h-2 rounded-full bg-white animate-ping"></div>
+                        {% endif %}
+                        </div>
+                        <span class="mt-2 text-xs sm:text-sm font-medium 
+                        {% if current == 'preparing' %}text-green-600 font-semibold
+                        {% elif current in 'delivering completed' %}text-gray-800
+                        {% else %}text-gray-400 {% endif %}">เตรียมอาหาร</span>
+                    </div>
+
+                    <!-- STEP 4: จัดส่ง -->
+                    <div class="flex flex-col items-center w-1/5 z-10 text-center">
+                        <div class="text-3xl text-gray-600 mb-2"><i class="fi fi-rr-motorcycle"></i></div>
+                        <div class="w-5 h-5 flex items-center justify-center rounded-full border-2 
+                        {% if current == 'delivering' %} border-green-500 bg-green-500 text-white scale-105 shadow-md
+                        {% elif current == 'completed' %} bg-gray-800 text-white border-gray-800
+                        {% else %} border-gray-300 bg-white text-gray-400 {% endif %}">
+                        {% if current == 'completed' %}
+                            <i class="fi fi-rr-check text-xs"></i>
+                        {% elif current == 'delivering' %}
+                            <div class="w-2 h-2 rounded-full bg-white animate-ping"></div>
+                        {% endif %}
+                        </div>
+                        <span class="mt-2 text-xs sm:text-sm font-medium 
+                        {% if current == 'delivering' %}text-green-600 font-semibold
+                        {% elif current == 'completed' %}text-gray-800
+                        {% else %}text-gray-400 {% endif %}">จัดส่ง</span>
+                    </div>
+
+                    <!-- STEP 5: สำเร็จ -->
+                    <div class="flex flex-col items-center w-1/5 z-10 text-center">
+                        <div class="text-3xl text-gray-600 mb-2"><i class="fi fi-rr-check-circle"></i></div>
+                        <div class="w-5 h-5 flex items-center justify-center rounded-full border-2 
+                        {% if current == 'completed' %} bg-green-500 text-white scale-105 shadow-md
+                        {% else %} border-gray-300 bg-white text-gray-400 {% endif %}">
+                        {% if current == 'completed' %}
+                            <i class="fi fi-rr-check text-xs"></i>
+                        {% endif %}
+                        </div>
+                        <span class="mt-2 text-xs sm:text-sm font-medium 
+                        {% if current == 'completed' %}text-green-600 font-semibold
+                        {% else %}text-gray-400 {% endif %}">ส่งสำเร็จ</span>
+                    </div>
+
+                    {% endwith %}
+                </div>
+
+
+
+
+
+
+
+
+                <ul class="list-disc ml-6">
+                    {% for item in order.items.all %}
+                        <li>{{ item.menu_item.name }} x {{ item.quantity }} – {{ item.price }} บาท</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>คุณยังไม่มีคำสั่งซื้อ</p>
+    {% endif %}
+</div>
+{% endblock %}

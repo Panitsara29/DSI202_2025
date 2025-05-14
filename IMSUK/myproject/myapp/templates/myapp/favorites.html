@@ -1,0 +1,120 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block title %}เมนูที่ถูกใจ | IMSUK{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold text-pink-700 mb-6">เมนูที่ฉันถูกใจ</h1>
+
+    {% if favorites %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for item in favorites %}
+        <div class="bg-white rounded-xl shadow hover:shadow-lg transform transition duration-300 hover:scale-[1.02] overflow-hidden flex flex-col justify-between group relative min-h-[400px]">
+        <div class="relative">
+            <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full h-64 object-cover">
+            {% if item.get_discount_percent %}
+            <div class="absolute top-2 left-2 bg-pink-100 text-pink-600 text-xs font-semibold px-2 py-1 rounded-full shadow">
+            {{ item.get_discount_percent }}% off
+            </div>
+            {% endif %}
+            <a href="{% url 'menu_detail' item.id %}" class="absolute bottom-2 right-2 bg-white rounded-full p-2 text-gray-600 shadow-md opacity-0 group-hover:opacity-100 transition">
+            <i class="fi fi-br-search text-lg"></i>
+            </a>
+        </div>
+
+        <div class="p-3 flex flex-col flex-grow gap-2">
+            <div class="flex justify-between items-start">
+            <h3 class="font-bold text-gray-800 text-lg">{{ item.name }}</h3>
+            <button onclick="toggleFavorite({{ item.id }}, this)">
+                <i class="fi {% if user in item.favorited_by.all %}fi-sr-heart text-pink-500{% else %}fi-rr-heart text-gray-400{% endif %} text-xl"></i>
+            </button>
+            </div>
+
+            <div class="text-sm text-gray-600 flex flex-wrap items-center gap-x-2">
+            <i class="fi fi-rr-shop text-pink-500"></i> {{ item.restaurant.name }}
+            <span class="text-gray-300">|</span>
+            {{ item.category.name }}
+            {% if item.allergens.all %}
+            <span class="text-gray-300">|</span>
+            ส่วนผสมที่อาจแพ้: {{ item.allergens.all|join:", " }}
+            {% endif %}
+            </div>
+
+            <div class="mt-auto pt-1 border-t border-gray-100 pt-2">
+            <div class="flex justify-between items-center">
+                <div>
+                <span class="text-xl font-extrabold text-pink-600">฿{{ item.get_discounted_price|floatformat:2 }}</span>
+                {% if item.get_discount_percent %}
+                <span class="text-sm text-gray-400 line-through ml-1">฿{{ item.price|floatformat:2 }}</span>
+                {% endif %}
+                </div>
+                <div class="flex items-center space-x-2">
+                <div class="inline-flex items-center border border-gray-300 rounded-full px-3 py-1">
+                    <button onclick="decreaseQuantity({{ item.id }})" class="text-gray-600 hover:text-pink-500 text-lg px-2 font-bold">−</button>
+                    <span id="qty-{{ item.id }}" class="text-sm w-5 text-center">1</span>
+                    <button onclick="increaseQuantity({{ item.id }})" class="text-gray-600 hover:text-pink-500 text-lg px-2 font-bold">+</button>
+                </div>
+                <button onclick="addToCart({{ item.id }})"
+                    class="bg-pink-500 hover:bg-pink-600 text-white text-sm font-medium rounded-full px-4 py-1.5 shadow-sm transition">
+                    เพิ่มลงรถเข็น
+                </button>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-gray-500">คุณยังไม่มีเมนูที่ถูกใจ</p>
+    {% endif %}
+    </div>
+
+    <script>
+    function increaseQuantity(id) {
+    const qty = document.getElementById(`qty-${id}`);
+    qty.textContent = parseInt(qty.textContent) + 1;
+    }
+    function decreaseQuantity(id) {
+    const qty = document.getElementById(`qty-${id}`);
+    const current = parseInt(qty.textContent);
+    if (current > 1) qty.textContent = current - 1;
+    }
+    function addToCart(id) {
+    const qty = parseInt(document.getElementById(`qty-${id}`).textContent);
+    fetch(`/add_to_cart/${id}/`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({ quantity: qty })
+    })
+    .then(res => res.json())
+    .then(data => {
+        const cartCount = document.getElementById("cart-count");
+        if (cartCount && data.cart_count !== undefined) {
+        cartCount.textContent = data.cart_count;
+        }
+    });
+    }
+    function toggleFavorite(id, btn) {
+    fetch(`/toggle_favorite/${id}/`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        const icon = btn.querySelector('i');
+        icon.classList.toggle('fi-sr-heart');
+        icon.classList.toggle('fi-rr-heart');
+        icon.classList.toggle('text-pink-500');
+        icon.classList.toggle('text-gray-400');
+    });
+}
+</script>
+{% endblock %}
