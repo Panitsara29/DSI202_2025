@@ -1,0 +1,620 @@
+{% extends 'myapp/base.html' %}
+{% block title %}IMSUK | ยินดีต้อนรับสู่ความอิ่มสุข{% endblock %}
+
+{% block content %}
+
+
+<section class="relative w-full h-auto overflow-hidden py-32">
+
+  <!-- 🎞️ วิดีโอพื้นหลัง -->
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+    <source src="/media/hero.mp4" type="video/mp4">
+    เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ
+  </video>
+
+  <!-- 🧊 กล่องข้อความลอย -->
+  <div class="relative z-10 max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between 
+              bg-white/70 backdrop-blur-lg shadow-2xl rounded-3xl p-10 md:p-16 ring-1 ring-white/20 
+              animate-bob-stronger">
+
+    <!-- ข้อความ -->
+    <div class="text-center md:text-left md:max-w-xl">
+      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight text-gray-900 drop-shadow-md mb-6">
+        กินด้วยใจ <br />
+        <span class="text-[#2c9569]">รักษ์โลก</span> ไปพร้อมกัน
+      </h1>
+      <p class="text-lg text-gray-700 mb-8">
+        IMSUK แพลตฟอร์มที่ช่วยคุณสั่งอาหารอย่างยั่งยืน ลดขยะอาหาร และสนับสนุนร้านท้องถิ่นในชุมชน
+      </p>
+      <div class="flex flex-wrap justify-center md:justify-start gap-4">
+        <a href="{% url 'menu_list' %}" class="px-6 py-3 bg-[#2c9569] text-white text-lg font-semibold rounded-full shadow-lg hover:bg-[#248257] transition duration-300">
+          เริ่มสั่งอาหาร
+        </a>
+        <a href="{% url 'about' %}" class="px-6 py-3 border-2 border-[#2c9569] text-[#2c9569] text-lg font-semibold rounded-full hover:bg-[#2c9569]/10 transition duration-300">
+          เกี่ยวกับเรา
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- 🌐 Partner Logos Loop Scroll -->
+<section class="bg-white py-12 overflow-hidden">
+  <div class="logo-marquee relative w-full overflow-hidden">
+    <div class="logo-track flex items-center gap-12 animate-scrollLoop">
+      <!-- Logo Set (วนซ้ำได้ตามต้องการ) -->
+      <img src="/media/1.png" alt="Partner 1" class="logo-img" />
+      <img src="/media/2.png" alt="Partner 2" class="logo-img" />
+      <img src="/media/3.png" alt="Partner 3" class="logo-img" />
+      <img src="/media/4.png" alt="Partner 4" class="logo-img" />
+      <img src="/media/5.png" alt="Partner 5" class="logo-img" />
+      <img src="/media/6.png" alt="Partner 6" class="logo-img" />
+      <img src="/media/7.png" alt="Partner 1" class="logo-img" />
+      <img src="/media/8.png" alt="Partner 2" class="logo-img" />
+      <img src="/media/9.png" alt="Partner 3" class="logo-img" />
+      <img src="/media/10.png" alt="Partner 4" class="logo-img" />
+      <img src="/media/11.png" alt="Partner 5" class="logo-img" />
+      <img src="/media/12.png" alt="Partner 6" class="logo-img" />
+      <img src="/media/13.png" alt="Partner 6" class="logo-img" />
+      <img src="/media/14.png" alt="Partner 6" class="logo-img" />
+      <img src="/media/15.png" alt="Partner 6" class="logo-img" />
+      <img src="/media/16.png" alt="Partner 6" class="logo-img" />
+      <img src="/media/17.png" alt="Partner 6" class="logo-img" />
+      <img src="/media/18.png" alt="Partner 6" class="logo-img" />
+      <img src="/media/19.png" alt="Partner 6" class="logo-img" />
+      <img src="/media/20.png" alt="Partner 6" class="logo-img" />
+      <img src="/media/21.png" alt="Partner 6" class="logo-img" />
+      <img src="/media/22.png" alt="Partner 6" class="logo-img" />
+    </div>
+  </div>
+</section>
+
+<!-- 🎨 Style -->
+<style>
+.logo-marquee {
+  white-space: nowrap;
+  position: relative;
+}
+
+.logo-track {
+  display: flex;
+  width: max-content;
+  animation: scrollLoop 20s linear infinite; /* 🔄 ปรับความเร็วที่นี่ (20s เร็วขึ้นจาก 40s) */
+}
+
+@keyframes scrollLoop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.logo-img {
+  max-height: 140px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.5;
+  filter: grayscale(30%);
+  transition: all 0.3s ease;
+}
+.logo-img:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+}
+
+</style>
+
+<section class="bg-white py-24">
+  <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+
+    <!-- 🟢 Left Text Card -->
+    <div class="bg-white rounded-2xl p-8 md:p-10">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-[#2c9569] mb-4">IMSUK คืออะไร?</h2>
+
+      <p class="text-base md:text-lg leading-relaxed text-gray-700 mb-6">
+        IMSUK ไม่ใช่แค่แพลตฟอร์มสั่งอาหารทั่วไป 
+        <br>
+        — แต่คือสื่อกลางของการ
+        <span class="text-[#f8758b] font-semibold">ลดขยะอาหาร</span>,
+        <span class="text-[#2c9569] font-semibold">ส่งเสริมการบริโภคอย่างยั่งยืน</span>,
+        และ
+        <span class="text-[#f8758b] font-semibold">เชื่อมโยงชุมชนกับสิ่งแวดล้อม</span>
+        <br>
+        ผ่านเมนูอาหารที่ทั้งอร่อย สุขภาพดี และไม่สูญเปล่า
+      </p>
+
+      <!-- เส้นคั่นบาง -->
+      <hr class="border-t border-gray-200 my-6">
+
+      <ul class="space-y-4 text-gray-700 text-sm md:text-base">
+        <li class="flex items-start gap-3">
+          <i class="fi fi-rr-hand-holding-heart text-[#f8758b] text-lg mt-1"></i>
+          <span>ช่วยร้านค้าท้องถิ่นขายเมนูใกล้หมดอายุในราคาสุดคุ้ม</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <i class="fi fi-rr-leaf-heart text-[#2c9569] text-lg mt-1"></i>
+          <span>ลดการสูญเสียวัตถุดิบ และลดการปล่อยคาร์บอนจากขยะอาหาร</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <i class="fi fi-rr-users-alt text-[#f8758b] text-lg mt-1"></i>
+          <span>เชื่อมโยงคนรักสุขภาพ กับเมนูคุณภาพที่เป็นมิตรต่อโลก</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 🍱 Right Image Card -->
+    <div class="rounded-2xl shadow-lg overflow-hidden bg-white aspect-[16/9] md:aspect-auto w-full h-full flex items-center justify-center p-2 border border-gray-200">
+      <img src="/media/food1.jpg" alt="การ์ดแนะนำ" class="w-full h-full object-cover rounded-xl">
+    </div>
+
+  </div>
+</section>
+
+
+<!-- 🌟 Animation Styles -->
+<style>
+  .bounce-slow {
+    animation: bounceSlow 3s infinite;
+  }
+
+  @keyframes bounceSlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+</style>
+
+<!-- ขยะอาหาร: โอกาสที่ซ่อนอยู่ -->
+<section class="relative bg-[#fefefe] py-24 overflow-hidden" data-aos="fade-up">
+  <!-- Bubbles -->
+  <div class="floating-bubbles">
+    <span class="bubble w-6 h-6 left-10 animate-[rise_8s_linear_infinite]"></span>
+    <span class="bubble w-4 h-4 left-1/4 animate-[rise_12s_linear_infinite]"></span>
+    <span class="bubble w-8 h-8 left-1/3 animate-[rise_10s_linear_infinite]"></span>
+    <span class="bubble w-5 h-5 left-3/4 animate-[rise_14s_linear_infinite]"></span>
+    <span class="bubble w-3 h-3 left-2/3 animate-[rise_9s_linear_infinite]"></span>
+  </div>
+
+  <!-- Header -->
+  <div class="relative z-10 max-w-6xl mx-auto px-4 text-center">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-extrabold text-[#2c9569] mb-4 relative inline-block">
+        ขยะอาหาร: โอกาสที่ซ่อนอยู่
+        <span class="block w-20 h-1 bg-[#2c9569] mx-auto mt-4 rounded-full"></span>
+      </h2>
+      <p class="text-gray-500 text-base max-w-xl mx-auto mt-2">
+        มากกว่าปัญหา ขยะอาหารคือโอกาสในการช่วยโลก ลดต้นทุน และสร้างสังคมที่ห่วงใยกัน
+      </p>
+    </div>
+
+    <!-- Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 text-left">
+
+      <!-- Card 1 -->
+      <div class="group relative bg-white border border-gray-100 rounded-xl p-7 min-h-[160px] shadow hover:shadow-md hover:-translate-y-2 transition-transform duration-500 ease-in-out overflow-hidden text-base">
+        <span class="absolute left-0 top-0 w-1 h-full bg-[#2c9569] origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-in-out"></span>
+        <div class="flex items-start gap-6 relative z-10">
+          <div class="flip-icon w-14 h-14 relative">
+            <div class="flip-icon-inner w-full h-full">
+              <div class="flip-front bg-[#d1f4e7]">
+                <i data-lucide="package-check" class="text-[#2c9569] w-6 h-6 leading-none mx-auto my-4"></i>
+              </div>
+              <div class="flip-back bg-[#2c9569]">
+                <i data-lucide="package-check" class="text-white w-6 h-6 leading-none mx-auto my-4"></i>
+              </div>
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">อาหารที่ถูกทิ้ง ≠ ของเสีย</h3>
+            <p class="text-gray-600 leading-relaxed">
+              อาหารกว่า 30% ถูกทิ้งโดยไม่จำเป็น ทั้งที่ยังรับประทานได้ การจัดการที่ดีช่วยลดความสูญเปล่าและคืนคุณค่าให้สังคม
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="group relative bg-white border border-gray-100 rounded-xl p-7 min-h-[160px] shadow hover:shadow-md hover:-translate-y-2 transition-transform duration-500 ease-in-out overflow-hidden text-base">
+        <span class="absolute left-0 top-0 w-1 h-full bg-[#2c9569] origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-in-out"></span>
+        <div class="flex items-start gap-6 relative z-10">
+          <div class="flip-icon w-14 h-14 relative">
+            <div class="flip-icon-inner w-full h-full">
+              <div class="flip-front bg-[#d1f4e7]">
+                <i data-lucide="flame" class="text-[#2c9569] w-6 h-6 mx-auto my-4"></i>
+              </div>
+              <div class="flip-back bg-[#2c9569]">
+                <i data-lucide="flame" class="text-white w-6 h-6 mx-auto my-4"></i>
+              </div>
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">ลดขยะ = ลดโลกร้อน</h3>
+            <p class="text-gray-600 leading-relaxed">
+              ขยะอาหารเป็นแหล่งก๊าซมีเทนซึ่งแรงกว่าคาร์บอน 25 เท่า ลดของเสียจึงเท่ากับลดโลกร้อนในชีวิตประจำวัน
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="group relative bg-white border border-gray-100 rounded-xl p-7 min-h-[160px] shadow hover:shadow-md hover:-translate-y-2 transition-transform duration-500 ease-in-out overflow-hidden text-base">
+        <span class="absolute left-0 top-0 w-1 h-full bg-[#2c9569] origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-in-out"></span>
+        <div class="flex items-start gap-6 relative z-10">
+          <div class="flip-icon w-14 h-14 relative">
+            <div class="flip-icon-inner w-full h-full">
+              <div class="flip-front bg-[#d1f4e7]">
+                <i data-lucide="wallet-cards" class="text-[#2c9569] w-6 h-6 mx-auto my-4"></i>
+              </div>
+              <div class="flip-back bg-[#2c9569]">
+                <i data-lucide="wallet-cards" class="text-white w-6 h-6 mx-auto my-4"></i>
+              </div>
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">ผลกระทบเชิงเศรษฐกิจ</h3>
+            <p class="text-gray-600 leading-relaxed">
+              ขยะอาหารในไทยมีมูลค่ากว่า 4 แสนล้านบาท/ปี การลดขยะช่วยคืนทรัพยากรและสร้างความมั่นคงทางอาหาร
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="group relative bg-white border border-gray-100 rounded-xl p-7 min-h-[160px] shadow hover:shadow-md hover:-translate-y-2 transition-transform duration-500 ease-in-out overflow-hidden text-base">
+        <span class="absolute left-0 top-0 w-1 h-full bg-[#2c9569] origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-in-out"></span>
+        <div class="flex items-start gap-6 relative z-10">
+          <div class="flip-icon w-14 h-14 relative">
+            <div class="flip-icon-inner w-full h-full">
+              <div class="flip-front bg-[#d1f4e7]">
+                <i data-lucide="users" class="text-[#2c9569] w-6 h-6 mx-auto my-4"></i>
+              </div>
+              <div class="flip-back bg-[#2c9569]">
+                <i data-lucide="users" class="text-white w-6 h-6 mx-auto my-4"></i>
+              </div>
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">ทุกคนมีส่วนร่วมได้</h3>
+            <p class="text-gray-600 leading-relaxed">
+              เลือกเมนูลดขยะ แบ่งปันอาหาร กินพอดี เริ่มเปลี่ยนโลกจากการตัดสินใจในมื้อถัดไปของคุณเอง
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 🎯 เป้าหมายของเรา -->
+<section class="relative bg-white py-20">
+  <div class="max-w-5xl mx-auto px-4">
+    <!-- Heading -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-extrabold text-[#2c9569] mb-4 relative inline-block">
+        เป้าหมายของเรา
+        <span class="block w-20 h-1 bg-[#2c9569] mx-auto mt-2 rounded-full"></span>
+      </h2>
+        <p class="text-gray-600 text-base max-w-2xl mx-auto mt-4 leading-relaxed text-center">
+          IMSUK ไม่ใช่แค่การสั่งอาหาร แต่คือการเริ่มต้นเปลี่ยนโลก<br class="hidden sm:inline">
+          ด้วยการกินที่มีความหมายในทุกมื้อ ผ่านการเลือกเมนูที่ใส่ใจสุขภาพ ผู้คน และโลกใบนี้
+        </p>
+    </div>
+
+    <!-- Card List -->
+    <div class="space-y-16">
+
+      <!-- Card 1 -->
+      <div class="relative w-[640px] group w-full mx-auto bg-white border-2 border-[#c6efd3] rounded-[20px] p-9 shadow-[0_8px_30px_rgba(136,222,125,0.2)] transition-all duration-500 hover:translate-x-2 hover:shadow-xl">
+        <div class="absolute top-4 left-[-45px] text-[70px] font-extrabold text-[#c6efd3] z-40 group-hover:translate-y-8 group-hover:text-[#2c9569] transition-all duration-500">01</div>
+        <div class="flex items-center relative z-30">
+          <div class="ml-2 w-16 h-16 rounded-xl bg-[#2c9569] text-white text-3xl flex items-center justify-center shadow-md transition-all duration-500 group-hover:rotate-[15deg] group-hover:scale-110 group-hover:bg-[#88de7d] z-20">
+            <i class="fi fi-sr-trash-undo"></i>
+          </div>
+          <div class="ml-7">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">ลดขยะอาหารอย่างเป็นรูปธรรม</h3>
+            <p class="text-sm text-gray-600">เราช่วยให้วัตถุดิบที่ยังดีและปลอดภัยถูกนำกลับมาใช้ก่อนหมดอายุ เพื่อป้องกันการทิ้งอาหารโดยไม่จำเป็น และลดภาระด้านสิ่งแวดล้อม</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="relative w-[640px] group w-full mx-auto bg-white border-2 border-[#c6efd3] rounded-[20px] p-9 shadow-[0_8px_30px_rgba(136,222,125,0.2)] transition-all duration-500 hover:translate-x-2 hover:shadow-xl">
+        <div class="absolute top-4 left-[-45px] text-[70px] font-extrabold text-[#c6efd3] z-40 group-hover:translate-y-8 group-hover:text-[#2c9569] transition-all duration-500">02</div>
+        <div class="flex items-center relative z-30">
+          <div class="ml-2 w-16 h-16 rounded-xl bg-[#2c9569] text-white text-3xl flex items-center justify-center shadow-md transition-all duration-500 group-hover:rotate-[15deg] group-hover:scale-110 group-hover:bg-[#88de7d] z-20">
+            <i class="fi fi-sr-store-alt"></i>
+          </div>
+          <div class="ml-7">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">สนับสนุนเศรษฐกิจท้องถิ่น</h3>
+            <p class="text-sm text-gray-600">เราร่วมมือกับร้านอาหารรายย่อยให้มีรายได้เพิ่มจากเมนู Surprise Box หรือวัตถุดิบใกล้หมดอายุ พร้อมสร้างความมั่นคงด้านอาหารในชุมชน</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="relative w-[640px] group w-full mx-auto bg-white border-2 border-[#c6efd3] rounded-[20px] p-9 shadow-[0_8px_30px_rgba(136,222,125,0.2)] transition-all duration-500 hover:translate-x-2 hover:shadow-xl">
+        <div class="absolute top-4 left-[-45px] text-[70px] font-extrabold text-[#c6efd3] z-40 group-hover:translate-y-8 group-hover:text-[#2c9569] transition-all duration-500">03</div>
+        <div class="flex items-center relative z-30">
+          <div class="ml-2 w-16 h-16 rounded-xl bg-[#2c9569] text-white text-3xl flex items-center justify-center shadow-md transition-all duration-500 group-hover:rotate-[15deg] group-hover:scale-110 group-hover:bg-[#88de7d] z-20">
+            <i class="fi fi-sr-leaf-heart"></i>
+          </div>
+          <div class="ml-7">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">ส่งเสริมการบริโภคอย่างใส่ใจ</h3>
+            <p class="text-sm text-gray-600">ผู้ใช้เลือกเมนูที่ดีต่อสุขภาพ ราคาเหมาะสม และไม่ก่อให้เกิดของเสีย เราออกแบบให้การกินทุกครั้ง เป็นการดูแลทั้งตัวเองและสิ่งแวดล้อม</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="relative w-[640px] group w-full mx-auto bg-white border-2 border-[#c6efd3] rounded-[20px] p-9 shadow-[0_8px_30px_rgba(136,222,125,0.2)] transition-all duration-500 hover:translate-x-2 hover:shadow-xl">
+        <div class="absolute top-4 left-[-45px] text-[70px] font-extrabold text-[#c6efd3] z-40 group-hover:translate-y-8 group-hover:text-[#2c9569] transition-all duration-500">04</div>
+        <div class="flex items-center relative z-30">
+          <div class="ml-2 w-16 h-16 rounded-xl bg-[#2c9569] text-white text-3xl flex items-center justify-center shadow-md transition-all duration-500 group-hover:rotate-[15deg] group-hover:scale-110 group-hover:bg-[#88de7d] z-20">
+            <i class="fi fi-sr-users-alt"></i>
+          </div>
+          <div class="ml-7">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">สร้างวัฒนธรรมใหม่ในสังคม</h3>
+            <p class="text-sm text-gray-600">IMSUK อยากให้ “การกินอย่างมีคุณค่า” เป็นเรื่องง่ายและแพร่หลาย เพื่อให้คนรุ่นใหม่เติบโตในโลกที่ใส่ใจมากกว่าแค่ความสะดวก</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Call to Action - IMSUK Style -->
+<section class="relative bg-fixed bg-center bg-cover py-28" style="background-image: url('/media/cta-bg.jpg');" data-aos="zoom-in">
+  <div class="absolute inset-0 bg-[#2c9569]/80 backdrop-blur-sm"></div>
+
+  <div class="relative max-w-5xl mx-auto px-6 text-center text-white z-10">
+    <h2 class="text-4xl font-extrabold mb-5 animate__animated animate__fadeInUp">
+      เริ่มต้นเปลี่ยนโลก จากมื้ออาหารของคุณ
+    </h2>
+    <p class="text-lg text-white/90 mb-8 animate__animated animate__fadeInUp animate__delay-1s">
+      ร่วมกับ IMSUK เพื่อช่วยลดขยะอาหาร สนับสนุนร้านชุมชน และดูแลสุขภาพของคุณเองอย่างยั่งยืน
+    </p>
+    <div class="flex justify-center gap-4 animate__animated animate__fadeInUp animate__delay-2s">
+      <a href="{% url 'register' %}" class="px-6 py-3 bg-white text-[#2c9569] font-semibold text-lg rounded-full shadow hover:bg-gray-100 transition">
+        สมัครใช้งาน
+      </a>
+      <a href="{% url 'about' %}" class="px-6 py-3 border-2 border-white text-white font-semibold text-lg rounded-full hover:bg-white/10 transition">
+        เกี่ยวกับเรา
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- 🆕 เมนูมาใหม่ -->
+<section class="bg-[#f9fff9] py-20" data-aos="fade-up">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-3xl font-extrabold text-[#2c9569] mb-12 text-center">
+      เมนูมาใหม่
+      <span class="block w-16 h-1 bg-[#88de7d] mx-auto mt-3 rounded-full"></span>
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      {% for item in new_items %}
+      <div class="bg-white border border-[#e6f4eb] rounded-2xl shadow-md hover:shadow-xl transform hover:scale-[1.03] transition duration-300" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:"100" }}">
+        <div class="relative">
+          {% if item.image %}
+            <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full h-56 object-cover rounded-t-2xl">
+          {% endif %}
+          <div class="absolute top-2 left-2 bg-[#d2f0dc] text-[#2c9569] text-xs font-semibold px-3 py-1 rounded-full shadow">
+            เมนูใหม่
+          </div>
+        </div>
+        <div class="p-5">
+          <h3 class="text-xl font-bold text-[#2c9569] mb-2">{{ item.name }}</h3>
+          <p class="text-sm text-gray-600 line-clamp-2">{{ item.description }}</p>
+          <div class="flex justify-between items-center mt-4">
+            <div class="text-[#2c9569] font-semibold text-base">฿{{ item.price }}</div>
+            <a href="{% url 'menu_detail' item.id %}" class="text-sm bg-[#2c9569] text-white px-4 py-1.5 rounded-full hover:bg-[#248256] transition">
+              สั่งเลย
+            </a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+        <p class="text-gray-500 col-span-3 text-center">ยังไม่มีเมนูใหม่</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<!-- 👥 Testimonials Carousel -->
+<section class="bg-white py-32 overflow-x-hidden relative" data-aos="fade-up">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-4xl font-extrabold text-center text-[#2c9569] mb-16">เสียงจากผู้ใช้งานจริง</h2>
+
+    <div class="relative">
+      <!-- Swiper Container -->
+      <div class="swiper testimonials-swiper">
+        <div class="swiper-wrapper">
+
+          <!-- Slide 1 -->
+          <div class="swiper-slide">
+            <div class="bg-white border border-gray-200 rounded-2xl shadow-xl px-6 py-8 h-full flex flex-col justify-between transition hover:scale-[1.02]">
+              <div class="flex justify-center mb-4">
+                <div class="w-14 h-14 rounded-full bg-[#e6f4ef] flex items-center justify-center shadow">
+                  <i class="fi fi-rr-user text-[#2c9569] text-xl"></i>
+                </div>
+              </div>
+              <p class="text-center text-gray-800 leading-relaxed mb-4">แดชบอร์ดช่วยให้ผมวางแผนมื้ออาหารได้ดีขึ้นมาก คุมน้ำหนักและลดฟู้ดเวสต์ได้จริง</p>
+              <p class="text-[#2c9569] font-bold text-center">— คุณต้น, พนักงานออฟฟิศสายสุขภาพ</p>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="swiper-slide">
+            <div class="bg-white border border-gray-200 rounded-2xl shadow-xl px-6 py-8 h-full flex flex-col justify-between transition hover:scale-[1.02]">
+              <div class="flex justify-center mb-4">
+                <div class="w-14 h-14 rounded-full bg-[#e6f4ef] flex items-center justify-center shadow">
+                  <i class="fi fi-rr-user text-[#2c9569] text-xl"></i>
+                </div>
+              </div>
+              <p class="text-center text-gray-800 leading-relaxed mb-4">ฉันชอบเมนูเซอร์ไพรส์ เพราะได้ลองของใหม่ในราคาถูกกว่าปกติ ช่วยลดขยะจริง ๆ</p>
+              <p class="text-[#2c9569] font-bold text-center">— คุณพิม, นักเรียนมัธยม</p>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="swiper-slide">
+            <div class="bg-white border border-gray-200 rounded-2xl shadow-xl px-6 py-8 h-full flex flex-col justify-between transition hover:scale-[1.02]">
+              <div class="flex justify-center mb-4">
+                <div class="w-14 h-14 rounded-full bg-[#e6f4ef] flex items-center justify-center shadow">
+                  <i class="fi fi-rr-user text-[#2c9569] text-xl"></i>
+                </div>
+              </div>
+              <p class="text-center text-gray-800 leading-relaxed mb-4">ร้านเล็ก ๆ ในชุมชนได้โอกาสใหม่จากแอปนี้ รู้สึกว่าได้ช่วยคนอื่นผ่านการกินของตัวเอง</p>
+              <p class="text-[#2c9569] font-bold text-center">— คุณแบงค์, ฟรีแลนซ์</p>
+            </div>
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="swiper-slide">
+            <div class="bg-white border border-gray-200 rounded-2xl shadow-xl px-6 py-8 h-full flex flex-col justify-between transition hover:scale-[1.02]">
+              <div class="flex justify-center mb-4">
+                <div class="w-14 h-14 rounded-full bg-[#e6f4ef] flex items-center justify-center shadow">
+                  <i class="fi fi-rr-user text-[#2c9569] text-xl"></i>
+                </div>
+              </div>
+              <p class="text-center text-gray-800 leading-relaxed mb-4">เป็นแอปเดียวที่ทำให้ฉันรู้สึกดีในการเลือกอาหารที่มีคุณค่าและยั่งยืนทุกมื้อ</p>
+              <p class="text-[#2c9569] font-bold text-center">— คุณฟ้า, เจ้าของร้านสุขใจ</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="swiper-pagination mt-8 !relative z-10"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 🧩 Services Section  -->
+<section class="bg-[#f0fdf4] py-20">
+  <div class="max-w-6xl mx-auto px-4 text-center">
+    <h2 class="text-3xl font-extrabold text-[#2c9569] mb-12">บริการของเรา</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <!-- Service 1 -->
+      <div class="bg-white border border-gray-100 rounded-xl p-6 shadow hover:shadow-lg transition duration-300">
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 bg-[#e6f5ef] p-3 rounded-full">
+            <i class="fi fi-rr-bolt  text-[#2c9569] text-2xl"></i>
+          </div>
+          <div class="text-left">
+            <h3 class="text-lg font-bold text-gray-900">ส่งถึงไว พร้อมรักษ์โลก</h3>
+            <p class="text-gray-600 text-sm mt-1 leading-relaxed">
+              จัดส่งอาหารที่ทั้งรวดเร็วและลดระยะทางการขนส่งผ่านระบบจับคู่ร้านใกล้ตัว
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="bg-white border border-gray-100 rounded-xl p-6 shadow hover:shadow-lg transition duration-300">
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 bg-[#e6f5ef] p-3 rounded-full">
+            <i class="fi fi-rr-badge-check text-[#2c9569] text-2xl"></i>
+          </div>
+          <div class="text-left">
+            <h3 class="text-lg font-bold text-gray-900">คุณภาพและความปลอดภัย</h3>
+            <p class="text-gray-600 text-sm mt-1 leading-relaxed">
+              ร้านค้าที่ร่วมระบบต้องผ่านการตรวจสอบมาตรฐานทั้งด้านสุขอนามัยและการจัดเก็บ
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="bg-white border border-gray-100 rounded-xl p-6 shadow hover:shadow-lg transition duration-300">
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 bg-[#e6f5ef] p-3 rounded-full">
+            <i class="fi fi-rr-comment-info  text-[#2c9569] text-2xl"></i>
+          </div>
+          <div class="text-left">
+            <h3 class="text-lg font-bold text-gray-900">บริการหลังการขายที่ห่วงใย</h3>
+            <p class="text-gray-600 text-sm mt-1 leading-relaxed">
+              ทีม IMSUK พร้อมให้คำแนะนำและช่วยเหลือคุณทันทีหากเกิดปัญหาในการสั่งอาหาร
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<style>
+@keyframes bobStronger {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.animate-bob-stronger {
+  animation: bobStronger 4s ease-in-out infinite;
+}
+</style>
+
+<style>
+@keyframes fadeInLine {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-delay-1 {
+  animation: fadeInLine 0.8s ease-out forwards;
+  animation-delay: 0.4s;
+}
+.animate-fade-in-delay-2 {
+  animation: fadeInLine 0.8s ease-out forwards;
+  animation-delay: 0.8s;
+}
+.animate-fade-in-delay-3 {
+  animation: fadeInLine 0.8s ease-out forwards;
+  animation-delay: 1.2s;
+}
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    new Swiper(".testimonials-swiper", {
+      loop: true,
+      spaceBetween: 24,
+      speed: 800,
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      breakpoints: {
+        0: { slidesPerView: 1 },
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+      },
+    });
+  });
+
+</style>
+
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,39 @@
+/* ✅ ปรับปุ่มสี Success (เขียวอ่อนนุ่ม) */
+.btn-success {
+    background-color: #66bb6a !important;
+    border-color: #66bb6a !important;
+}
+.btn-success:hover {
+    background-color: #4caf50 !important;
+}
+
+/* ✅ ปรับปุ่ม Primary/Danger เป็นชมพู */
+.btn-danger, .btn-primary, .btn-info {
+    background-color: #ec407a !important;
+    border-color: #ec407a !important;
+}
+.btn-danger:hover, .btn-primary:hover, .btn-info:hover {
+    background-color: #d81b60 !important;
+}
+
+/* ✅ ลิงก์ */
+a {
+    color: #ec407a;
+}
+a:hover {
+    color: #c2185b;
+}
+
+/* ✅ ฟอนต์ไทยทันสมัย */
+body {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+/* ✅ โลโก้ IMSUK กลมเล็ก */
+.brand-link img {
+    height: 40px !important;
+    width: auto !important;
+    object-fit: contain;
+    border-radius: 50%;
+    background-color: transparent !important;
+}

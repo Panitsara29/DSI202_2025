@@ -1,0 +1,88 @@
+{% extends 'myapp/base.html' %}
+{% load custom_filters %}
+
+{% block title %}รถเข็นของคุณ | IMSUK{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-12">
+  {% if cart_items %}
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- 🛒 รายการสินค้า -->
+    <div class="lg:col-span-2 bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div class="border-b px-6 py-4">
+        <h2 class="text-2xl font-bold text-[#ff6e7e] flex items-center gap-2">
+          <i class="fi fi-rr-shopping-cart"></i> รถเข็นของคุณ
+        </h2>
+      </div>
+      <div class="divide-y">
+        {% for item in cart_items %}
+        <div class="flex items-center gap-4 px-6 py-4">
+          <!-- รูป -->
+          <div class="w-16 h-16 flex-shrink-0">
+            {% if item.menu_item.image %}
+            <img src="{{ item.menu_item.image.url }}" alt="{{ item.menu_item.name }}" class="w-full h-full object-cover rounded-xl">
+            {% else %}
+            <div class="w-full h-full bg-gray-100 flex items-center justify-center text-xs text-gray-400">ไม่มีรูป</div>
+            {% endif %}
+          </div>
+
+          <!-- ชื่อ & ราคา -->
+          <div class="flex-1">
+            <h3 class="text-sm font-semibold text-gray-800">{{ item.menu_item.name }}</h3>
+            <div class="text-xs text-gray-500 mt-1">ราคา/ชิ้น: ฿{{ item.menu_item.price|floatformat:2 }}</div>
+            <div class="text-xs text-gray-500">จำนวน: {{ item.quantity }}</div>
+          </div>
+
+          <!-- ยอดรวมย่อย -->
+          <div class="text-sm font-semibold text-gray-800">฿{{ item.menu_item.price|mul:item.quantity|floatformat:2 }}</div>
+
+          <!-- ลบ -->
+          <form action="{% url 'remove_from_cart' item.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="text-gray-400 hover:text-red-500 ml-4">
+              <i class="fi fi-rr-trash"></i>
+            </button>
+          </form>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- 💳 สรุปยอด -->
+    <div class="bg-white rounded-2xl shadow-xl p-6 flex flex-col justify-between">
+      <div>
+        <h3 class="text-lg font-bold text-gray-800 mb-4">รวมทั้งหมด</h3>
+        <div class="space-y-2 text-sm text-gray-600">
+          <div class="flex justify-between">
+            <span>ยอดรวม</span>
+            <span>฿{{ total_price|floatformat:2 }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span>ค่าจัดส่ง</span>
+            <span class="text-green-500 font-medium">ฟรี</span>
+          </div>
+        </div>
+        <hr class="my-4">
+        <div class="flex justify-between text-lg font-bold">
+          <span>ยอดสุทธิ</span>
+          <span class="text-[#ff6e7e]">฿{{ total_price|floatformat:2 }}</span>
+        </div>
+      </div>
+
+      <a href="{% url 'checkout' %}" class="mt-6 inline-block w-full text-center bg-[#ff6e7e] hover:bg-[#ffa7a9] text-white font-semibold py-3 rounded-full transition">
+        <i class="fi fi-rr-receipt text-base mr-2"></i> ดำเนินการชำระเงิน
+      </a>
+    </div>
+  </div>
+  {% else %}
+  <!-- รถเข็นว่าง -->
+  <div class="text-center py-20 text-gray-600">
+    <i class="fi fi-rr-shopping-bag text-6xl text-gray-300 mb-4"></i>
+    <p class="text-xl font-medium mb-2">รถเข็นของคุณว่างเปล่าในตอนนี้</p>
+    <a href="{% url 'menu_list' %}" class="inline-block mt-4 text-[#ff6e7e] hover:underline font-semibold text-base">
+      ← เริ่มเลือกเมนูอาหาร
+    </a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+<div class="bg-white rounded-xl shadow hover:shadow-lg transform transition duration-300 hover:scale-[1.02] overflow-hidden flex flex-col justify-between group relative min-h-[400px]">
+    <div class="relative">
+        <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full h-64 object-cover">
+
+        {% if item.get_discount_percent %}
+        <div class="{% if item.is_surprise_box %}bg-green-100 text-green-600{% else %}bg-pink-100 text-pink-600{% endif %} absolute top-2 left-2 text-xs font-semibold px-2 py-1 rounded-full shadow">
+            {{ item.get_discount_percent }}% off
+        </div>
+        {% endif %}
+
+        {% if item.is_surprise_box %}
+        <div class="absolute top-2 right-2 bg-green-600 text-white text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full shadow-md">
+            กล่องสุ่ม
+        </div>
+        {% endif %}
+
+        <a href="{% url 'menu_detail' item.id %}" class="absolute bottom-2 right-2 bg-white rounded-full p-2 text-gray-600 shadow-md opacity-0 group-hover:opacity-100 transition">
+            <i class="fi fi-br-search text-lg"></i>
+        </a>
+    </div>
+
+
+    <div class="p-3 flex flex-col flex-grow gap-2">
+        <div class="flex justify-between items-start">
+        <h3 class="font-bold text-gray-800 text-lg">{{ item.name }}</h3>
+        <button onclick="toggleFavorite({{ item.id }}, this)">
+            <i class="fi {% if user in item.favorited_by.all %}fi-sr-heart text-green-500{% else %}fi-rr-heart text-gray-400{% endif %} text-xl"></i>
+        </button>
+        </div>
+
+        <div class="text-sm text-gray-600 flex flex-wrap items-center gap-x-2">
+        <i class="fi fi-rr-shop text-green-500"></i> {{ item.restaurant.name }}
+        <span class="text-gray-300">|</span>
+        {{ item.category.name }}
+        {% if item.allergens.all %}
+        <span class="text-gray-300">|</span>
+        ส่วนผสมที่อาจแพ้: {{ item.allergens.all|join:", " }}
+        {% endif %}
+        </div>
+
+        <div class="mt-auto pt-1 border-t border-gray-100 pt-2">
+        <div class="flex justify-between items-center">
+            <div>
+            <span class="text-xl font-extrabold text-green-600">฿{{ item.get_discounted_price|floatformat:2 }}</span>
+            {% if item.get_discount_percent %}
+            <span class="text-sm text-gray-400 line-through ml-1">฿{{ item.price|floatformat:2 }}</span>
+            {% endif %}
+            </div>
+            <div class="flex items-center space-x-2">
+            <div class="inline-flex items-center border border-gray-300 rounded-full px-3 py-1">
+                <button onclick="decreaseQuantity({{ item.id }})"
+                class="text-gray-600 hover:text-green-500 text-lg px-2 font-bold">−</button>
+                <span id="qty-{{ item.id }}" class="text-sm w-5 text-center">1</span>
+                <button onclick="increaseQuantity({{ item.id }})"
+                class="text-gray-600 hover:text-green-500 text-lg px-2 font-bold">+</button>
+            </div>
+            <button onclick="addToCart({{ item.id }})"
+                class="bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-full px-4 py-1.5 shadow-sm transition">
+                เพิ่มลงรถเข็น
+            </button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

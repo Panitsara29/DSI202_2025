@@ -1,0 +1,28 @@
+{% extends 'myapp/base.html' %}
+{% block title %}แจ้งเตือน | IMSUK{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold text-pink-600 mb-6"><i class="fi fi-rr-bell mr-2"></i>แจ้งเตือนของคุณ</h1>
+
+    {% if notifications %}
+        <ul class="space-y-4">
+            {% for note in notifications %}
+                <li class="bg-white p-4 rounded-lg shadow flex items-start gap-3 
+                    {% if not note.is_read %}border-l-4 border-pink-400{% endif %}">
+                    <div class="text-pink-500 text-xl mt-1"><i class="fi fi-rr-bell-ring"></i></div>
+                    <div>
+                        <p class="text-gray-800 text-sm">{{ note.message }}</p>
+                        <p class="text-xs text-gray-400 mt-1">{{ note.created_at|date:"d M Y H:i" }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="text-gray-500 text-center mt-10">
+            <i class="fi fi-rr-inbox text-4xl mb-4"></i>
+            <p>ยังไม่มีการแจ้งเตือนในขณะนี้</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

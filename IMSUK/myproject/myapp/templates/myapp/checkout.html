@@ -1,0 +1,177 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block title %}ยืนยันการสั่งซื้อ | IMSUK{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-10">
+    <h1 class="text-3xl font-extrabold text-[#ff6e7e] mb-8">
+        <i class="fi fi-rr-clipboard-list mr-2"></i>ยืนยันการสั่งซื้อ
+    </h1>
+
+    <form method="POST" action="{% url 'place_order' %}" class="space-y-10 bg-white rounded-2xl shadow-lg p-8 border border-gray-200" data-original-total="{{ total_price|floatformat:2 }}">
+        {% csrf_token %}
+
+        <!-- 🚚 ที่อยู่จัดส่ง -->
+        <div>
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="fi fi-rr-marker mr-2"></i>เลือกที่อยู่จัดส่ง
+            </h2>
+            {% if addresses %}
+                <div class="space-y-3">
+                {% for address in addresses %}
+                    <label class="flex items-start gap-3 p-4 border rounded-lg hover:border-[#ff6e7e] transition cursor-pointer {% if address.id == default_address.id %}border-[#ff6e7e] bg-pink-50{% else %}border-gray-300{% endif %}">
+                        <input type="radio" name="address" value="{{ address.id }}" class="mt-1 accent-[#ff6e7e]" {% if address.id == default_address.id %}checked{% endif %} required>
+                        <div class="text-sm leading-relaxed text-gray-700">
+                            <p class="font-bold">{{ address.label }} <span class="text-gray-500">({{ address.get_icon_display }})</span></p>
+                            <p>{{ address.street }}, {{ address.subdistrict }}, {{ address.district }}, {{ address.province }} {{ address.postal_code }}</p>
+                        </div>
+                    </label>
+                {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-red-500 font-medium">⚠️ คุณยังไม่มีที่อยู่จัดส่ง กรุณาเพิ่มในหน้า "บัญชีของฉัน"</p>
+            {% endif %}
+        </div>
+
+        <!-- 🍱 เมนูที่คุณจะสั่งซื้อ -->
+        <div>
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="fi fi-rr-utensils mr-2"></i>เมนูที่คุณจะสั่งซื้อ
+            </h2>
+            <ul class="divide-y rounded-xl border overflow-hidden">
+                {% for item in cart_items %}
+                <li class="p-4 flex justify-between text-gray-800 bg-white hover:bg-[#fff0f2] transition">
+                    <span>{{ item.menu_item.name }} <span class="text-gray-500">x {{ item.quantity }}</span></span>
+                    <span>{{ item.menu_item.price|floatformat:2 }} บาท</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- 🎟️ ใช้คูปอง -->
+        <div>
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="fi fi-rr-ticket mr-2"></i>ใช้คูปองส่วนลด
+            </h2>
+            <div class="max-w-xs">
+                {{ payment_form.coupon_code }}
+            </div>
+        </div>
+
+        <!-- 💵 สรุปราคา -->
+        <div>
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="fi fi-rr-receipt mr-2"></i>สรุปราคา
+            </h2>
+            <div class="bg-[#fff7f8] rounded-xl p-6 text-right text-gray-700 space-y-2 text-base" id="summary-section">
+                <div class="flex justify-between">
+                    <span>ราคาสินค้ารวม</span>
+                    <span id="summary-original">{{ total_price|floatformat:2 }} บาท</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>ค่าส่ง</span>
+                    <span class="text-green-500 font-medium">ฟรี</span>
+                </div>
+                <div class="flex justify-between hidden" id="discount-line">
+                    <span class="text-[#ff6e7e] font-medium">ส่วนลดจากคูปอง</span>
+                    <span class="text-[#ff6e7e] font-medium">- <span id="summary-discount"></span> บาท</span>
+                </div>
+                <div class="flex justify-between pt-2 border-t font-bold text-lg">
+                    <span>ยอดรวมสุทธิ</span>
+                    <span id="summary-total" class="text-[#ff6e7e]">{{ total_price|floatformat:2 }} บาท</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 💳 วิธีชำระเงิน -->
+        <div>
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="fi fi-rr-credit-card mr-2"></i>เลือกวิธีชำระเงิน
+            </h2>
+            <div class="space-y-3">
+                {{ payment_form.payment_method }}
+            </div>
+
+            <div id="card-info" class="mt-6 hidden space-y-4 bg-gray-50 p-6 rounded-xl border">
+                <div>
+                    <label class="block font-medium mb-1 text-gray-700">หมายเลขบัตร:</label>
+                    {{ payment_form.card_number }}
+                </div>
+                <div>
+                    <label class="block font-medium mb-1 text-gray-700">วันหมดอายุ (MM/YY):</label>
+                    {{ payment_form.expiry_date }}
+                </div>
+                <div>
+                    <label class="block font-medium mb-1 text-gray-700">CVV:</label>
+                    {{ payment_form.cvv }}
+                </div>
+            </div>
+        </div>
+
+        <!-- ✅ ปุ่มยืนยัน -->
+        <div class="text-right">
+            {% if addresses %}
+                <button type="submit" class="inline-flex items-center bg-[#ff6e7e] hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-full shadow-md transition">
+                    <i class="fi fi-rr-check mr-2"></i>ยืนยันการสั่งซื้อ
+                </button>
+            {% else %}
+                <a href="{% url 'my_account' %}" class="inline-block bg-gray-400 text-white font-semibold px-6 py-3 rounded-full shadow-md cursor-not-allowed opacity-70">
+                    เพิ่มที่อยู่ก่อนสั่งซื้อ
+                </a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+
+<script>
+    // แสดง/ซ่อนฟิลด์บัตรเครดิต
+    const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
+    const cardInfoSection = document.getElementById('card-info');
+    paymentRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            if (radio.value === 'card') {
+                cardInfoSection.classList.remove('hidden');
+            } else {
+                cardInfoSection.classList.add('hidden');
+            }
+        });
+    });
+    window.addEventListener('DOMContentLoaded', () => {
+        const selected = document.querySelector('input[name="payment_method"]:checked');
+        if (selected && selected.value === 'card') {
+            cardInfoSection.classList.remove('hidden');
+        }
+    });
+
+    // อัปเดตสรุปราคาเมื่อเลือกคูปอง
+    document.addEventListener('DOMContentLoaded', function () {
+        const couponSelect = document.querySelector('select[name="coupon_code"]');
+        const form = document.querySelector('form');
+        const originalTotal = parseFloat(form.dataset.originalTotal) || 0;
+        const discountLine = document.getElementById('discount-line');
+        const discountAmount = document.getElementById('summary-discount');
+        const totalFinal = document.getElementById('summary-total');
+
+        function updateSummary() {
+            const selected = couponSelect.options[couponSelect.selectedIndex];
+            const match = selected.textContent.match(/ลด\s+(\d+)%/);
+            if (match) {
+                const percent = parseFloat(match[1]);
+                const discount = originalTotal * (percent / 100);
+                discountAmount.textContent = discount.toFixed(2);
+                totalFinal.textContent = (originalTotal - discount).toFixed(2) + " บาท";
+                discountLine.classList.remove('hidden');
+            } else {
+                discountLine.classList.add('hidden');
+                totalFinal.textContent = originalTotal.toFixed(2) + " บาท";
+            }
+        }
+
+        if (couponSelect) {
+            couponSelect.addEventListener('change', updateSummary);
+            updateSummary();
+        }
+    });
+</script>
+{% endblock %}

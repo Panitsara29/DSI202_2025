@@ -1,0 +1,123 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block title %}เกี่ยวกับ IMSUK{% endblock %}
+
+{% block content %}
+<!--  HERO SECTION -->
+<section class="relative bg-gray-200 bg-cover bg-center min-h-[60vh] flex items-center justify-center text-center overflow-hidden"
+        style="background-image: url('/media/ab.jpg');">
+  <div class="relative z-10 px-6 py-24">
+    <h1 class="text-white text-5xl md:text-6xl font-extrabold drop-shadow-md">เกี่ยวกับ IMSUK</h1>
+    <p class="text-white text-xl mt-4 font-medium">แอปที่จะเปลี่ยนมื้ออาหารของคุณให้มีความหมายยิ่งขึ้น</p>
+  </div>
+</section>
+
+<!--  INTRO -->
+<section class="bg-white py-20 px-6">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    
+    <!--  LEFT: รูปภาพ -->
+    <div class="flex justify-center">
+      <img src="/media/weimsuk1.jpg" alt="เราทำเพื่ออะไร"
+        class="w-full h-full max-h-[10850px] rounded-2xl shadow-xl object-cover object-center" />
+    </div>
+
+    <!-- RIGHT: Text Content -->
+    <div class="space-y-6 text-[#282d31]">
+      <h2 class="text-3xl font-bold text-[#2c9569]">เราทำเพื่ออะไร</h2>
+
+      <p class="text-lg leading-relaxed">
+        ในทุกๆ วัน มีอาหารคุณภาพดีจำนวนมากที่ถูกทิ้งไปเพียงเพราะรูปลักษณ์ไม่สวยงาม หรือใกล้หมดวันจำหน่าย ทั้งที่ยังสามารถรับประทานได้อย่างปลอดภัย
+      </p>
+
+      <p class="text-lg leading-relaxed">
+        <span class="font-semibold text-[#2c9569]">IMSUK</span> เชื่อว่าอาหารทุกจานล้วนมีคุณค่า เราจึงพัฒนาแพลตฟอร์มที่ช่วยให้ร้านอาหารสามารถนำเมนูเหล่านั้นมาเสนอขาย
+        ให้ผู้บริโภคได้รับความคุ้มค่า พร้อมร่วมลดขยะอาหารไปด้วยกัน
+      </p>
+
+      <p class="text-lg leading-relaxed">
+        เมื่อคุณเลือกเมนูพิเศษจาก IMSUK ไม่เพียงแค่ช่วยโลกจากปัญหาสิ่งแวดล้อม
+        แต่ยังช่วยสร้างรายได้ให้กับร้านอาหารท้องถิ่น และส่งเสริมระบบเศรษฐกิจหมุนเวียน
+      </p>
+
+      <p class="text-lg leading-relaxed">
+        เป้าหมายของเราคือการสร้างระบบบริโภคแบบใหม่ที่ 
+        
+        <strong>ดีต่อคุณ ดีต่อร้านค้า และดีต่อโลก</strong><br>
+        เพราะความเปลี่ยนแปลงที่ยั่งยืน... เริ่มจากจานอาหารตรงหน้า
+      </p>
+    </div>
+    
+  </div>
+</section>
+
+
+
+
+<!-- HOW IT WORKS -->
+<section class="bg-[#f9fafb] py-20">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold text-[#2c9569] mb-12">แอปนี้ทำงานอย่างไร</h2>
+    <div class="grid md:grid-cols-3 gap-8 text-left">
+      
+      <div class="bg-white p-8 rounded-2xl shadow-md border">
+        <h3 class="text-xl font-semibold text-[#2c9569] mb-3">1. ร้านอาหารเสนอเมนูเหลือคุณภาพ</h3>
+        <p class="text-[#282d31]">ร้านที่เข้าร่วมสามารถอัปโหลดเมนูอาหารที่ยังดีแต่ค้างในวันนั้น เพื่อจำหน่ายในราคาลดพิเศษ</p>
+      </div>
+      
+      <div class="bg-white p-8 rounded-2xl shadow-md border">
+        <h3 class="text-xl font-semibold text-[#2c9569] mb-3">2. ผู้ใช้งานเลือกและสั่งผ่านแอป</h3>
+        <p class="text-[#282d31]">คุณสามารถค้นหาร้านใกล้บ้าน ดูเมนูที่เหลือ พร้อมราคาสุดคุ้ม และกดสั่งได้ทันที</p>
+      </div>
+      
+      <div class="bg-white p-8 rounded-2xl shadow-md border">
+        <h3 class="text-xl font-semibold text-[#2c9569] mb-3">3. รับอาหารและร่วมลดขยะ</h3>
+        <p class="text-[#282d31]">คุณสามารถรับอาหารที่ร้านหรือรอจัดส่ง พร้อมความรู้สึกดีที่ได้ช่วยลดปริมาณขยะอาหารในแต่ละวัน</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- FAQ -->
+<section class="bg-[#f9fafb] py-20 px-6">
+  <div class="max-w-4xl mx-auto text-left space-y-8">
+    <h2 class="text-3xl font-bold text-[#2c9569] text-center">คำถามที่พบบ่อย</h2>
+
+    <details class="group bg-white p-6 rounded-xl shadow-sm border">
+      <summary class="cursor-pointer text-lg font-semibold text-[#2c9569] flex justify-between items-center">
+        สามารถยกเลิกคำสั่งซื้อได้หรือไม่?
+        <span class="text-gray-400 group-open:rotate-180 transition">&#x25BC;</span>
+      </summary>
+      <p class="mt-3 text-[#282d31]">ได้ หากร้านค้ายังไม่เริ่มเตรียมอาหาร สามารถกดยกเลิกผ่านเมนู “คำสั่งซื้อของฉัน”</p>
+    </details>
+
+    <details class="group bg-white p-6 rounded-xl shadow-sm border">
+      <summary class="cursor-pointer text-lg font-semibold text-[#2c9569] flex justify-between items-center">
+        แอปนี้ช่วยลดขยะอาหารได้อย่างไร?
+        <span class="text-gray-400 group-open:rotate-180 transition">&#x25BC;</span>
+      </summary>
+      <p class="mt-3 text-[#282d31]">เราเปิดโอกาสให้ร้านขายเมนูที่อาจถูกทิ้ง ทั้งที่ยังคุณภาพดี ช่วยให้ของเหลือถูกใช้ประโยชน์</p>
+    </details>
+
+    <details class="group bg-white p-6 rounded-xl shadow-sm border">
+      <summary class="cursor-pointer text-lg font-semibold text-[#2c9569] flex justify-between items-center">
+        ต้องสั่งล่วงหน้าหรือไม่?
+        <span class="text-gray-400 group-open:rotate-180 transition">&#x25BC;</span>
+      </summary>
+      <p class="mt-3 text-[#282d31]">ไม่จำเป็น เมนูจะแสดงเฉพาะรายการที่พร้อมจำหน่ายทันที หรือกำลังจะหมดวัน</p>
+    </details>
+
+    <details class="group bg-white p-6 rounded-xl shadow-sm border">
+      <summary class="cursor-pointer text-lg font-semibold text-[#2c9569] flex justify-between items-center">
+        มีระบบรีวิวหรือคะแนนหรือไม่?
+        <span class="text-gray-400 group-open:rotate-180 transition">&#x25BC;</span>
+      </summary>
+      <p class="mt-3 text-[#282d31]">มี ผู้ใช้สามารถรีวิวและให้คะแนนเมนู ช่วยให้ผู้ใช้คนอื่นตัดสินใจได้ง่ายขึ้น</p>
+    </details>
+
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}IMSUK | แอปสั่งอาหารอิ่มสุข{% endblock %}</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts (optional) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans Thai', sans-serif;
+        }
+    </style>
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Flaticon UIcons CDN -->
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <!-- Regular Rounded -->
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <!-- Solid Rounded -->
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-thin-rounded/css/uicons-thin-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+
+    <!-- AOS Animate on Scroll CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- <head> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+
+    <style>
+    .flip-icon {
+        perspective: 600px;
+    }
+    .flip-icon-inner {
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+    }
+    .group:hover .flip-icon-inner {
+        transform: rotateY(180deg);
+    }
+    .flip-front, .flip-back {
+        backface-visibility: hidden;
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.75rem;
+    }
+    .flip-back {
+        transform: rotateY(180deg);
+    }
+    .floating-bubbles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+    }
+    .bubble {
+        position: absolute;
+        bottom: -50px;
+        background: rgba(255, 140, 159, 0.42);
+        border-radius: 50%;
+        animation: rise 10s infinite ease-in;
+    }
+    @keyframes rise {
+        0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.5;
+        }
+        100% {
+        transform: translateY(-1200px) scale(1.5);
+        opacity: 0;
+        }
+    }
+    </style>
+
+    <!-- AOS Animate On Scroll -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+    AOS.init({
+        once: true,
+        duration: 1000,
+    });
+    </script>
+
+
+    
+
+
+</head>
+<body class="bg-white text-[#282d31] min-h-screen flex flex-col">
+
+    <!-- 🌸 Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="{% url 'home' %}" class="flex items-center space-x-2">
+                <img src="/media/logo_1.png" alt="IMSUK logo" class="h-10 w-10 rounded-full">
+                <span class="text-xl font-bold text-[#2c9569]">IMSUK</span>
+            </a>
+
+            <!-- Navigation (ไม่มีบัญชีของฉันแล้ว) -->
+            <nav class="space-x-6 hidden md:flex">
+                <a href="{% url 'home' %}" class="text-gray-600 hover:text-[#2c9569]">หน้าแรก</a>
+                <a href="{% url 'menu_list' %}" class="text-gray-600 hover:text-[#2c9569]">เมนูอาหาร</a>
+                <a href="{% url 'surprise_boxes' %}" class="text-gray-600 hover:text-[#2c9569]">กล่องสุ่ม</a>
+                <a href="{% url 'favorites' %}" class="text-gray-600 hover:text-[#2c9569]">รายการโปรด</a>
+                <a href="{% url 'about' %}" class="text-gray-600 hover:text-[#2c9569]">เกี่ยวกับ</a>
+
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex space-x-4 items-center">
+
+                <!-- Account dropdown -->
+                {% if user.is_authenticated %}
+                <div class="relative group cursor-pointer w-8 h-8">
+                    <!-- ไอคอนปกติ -->
+                    <i class="fi fi-rr-circle-user text-[#2c9569]  text-2xl transition duration-300 ease-in-out group-hover:opacity-0 group-hover:scale-75"></i>
+
+                    <!-- ไอคอนเมื่อ hover -->
+                    <i class="fi fi-sr-circle-user text-[#2c9569]  text-2xl transition duration-300 ease-in-out absolute top-0 left-0 opacity-0 group-hover:opacity-100 group-hover:scale-100"></i>
+
+                    <!-- Dropdown -->
+                    <div class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-50 opacity-0 group-hover:opacity-100 transition">
+                        <div class="px-4 py-2 text-sm text-gray-600 border-b">{{ user.email }}</div>
+                        <a href="{% url 'my_account' %}" class="block px-4 py-2 text-gray-700 hover:bg-[#fbfcda]">โปรไฟล์</a>
+                        <a href="{% url 'my_orders' %}" class="block px-4 py-2 text-gray-700 hover:bg-[#fbfcda]">ประวัติคำสั่งซื้อ</a>
+                        <a href="{% url 'logout' %}" class="block px-4 py-2 text-gray-700 hover:bg-[#fbfcda]">ออกจากระบบ</a>
+                    </div>
+                </div>
+                {% else %}
+                <a href="{% url 'login' %}" class="text-sm text-gray-700 hover:text-pink-600">เข้าสู่ระบบ</a>
+                {% endif %}
+
+                <!-- Cart -->
+                <a href="{% url 'view_cart' %}" class="relative group">
+                    <i class="fi fi-rr-shopping-cart text-[#2c9569] text-2xl transition duration-300 ease-in-out group-hover:opacity-0 group-hover:scale-75"></i>
+                    <i class="fi fi-sr-shopping-cart text-[#2c9569] text-2xl transition duration-300 ease-in-out absolute top-0 left-0 opacity-0 group-hover:opacity-100 group-hover:scale-100"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                        {{ cart_item_count }}
+                        </span>
+                </a>
+
+                <!-- Notification -->
+                <a href="{% url 'notifications' %}" class="relative group">
+                    <i class="fi fi-rr-bell text-[#2c9569] text-2xl transition duration-300 ease-in-out group-hover:opacity-0 group-hover:scale-75"></i>
+                    <i class="fi fi-sr-bell text-[#2c9569] text-2xl transition duration-300 ease-in-out absolute top-0 left-0 opacity-0 group-hover:opacity-100 group-hover:scale-100"></i>
+                    {% if notification_unread_count > 0 %}
+                        <span class="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center animate-bounce">
+                            {{ notification_unread_count }}
+                        </span>
+                    {% endif %}
+                </a>
+
+            </div>
+        </div>
+    </header>
+    
+    <!-- 🌿 Main Content -->
+    <main class="flex-grow">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- 🍃 Footer -->
+    <footer class="bg-white border-t mt-12 py-6 text-center text-sm text-gray-500">
+        © 2025 IMSUK | กินด้วยใจ อิ่มด้วยรัก รักษ์โลกไปพร้อมกัน
+    </footer>
+
+
+<script>
+    function togglePassword(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+        if (!input || !icon) return; 
+        const isHidden = input.type === "password";
+        input.type = isHidden ? "text" : "password";
+        icon.className = isHidden ? "fi fi-rr-eye-crossed w-5 h-5" : "fi fi-rr-eye w-5 h-5";
+    }
+</script>
+
+<script>
+function editAddress(id) {
+    // ส่ง ID ไปใส่ใน hidden field
+    document.getElementById('address_id').value = id;
+    // เปิด modal แก้ไข
+    document.getElementById('addressModal').classList.remove('hidden');
+    // คุณสามารถเสริมฟังก์ชัน fetch ข้อมูลมาลง form ได้ที่นี่
+}
+</script>
+
+
+<!-- AOS Animate on Scroll JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1000,    // ระยะเวลาแสดง animation (ms)
+        once: true         // เล่น animation ครั้งเดียวเมื่อเลื่อนถึง
+    });
+</script>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 1000, once: true });
+</script>
+
+
+
+</body>
+
+<!-- Swiper CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        new Swiper(".testimonials-swiper", {
+        loop: true,
+        spaceBetween: 30,
+        autoplay: {
+            delay: 4500,
+            disableOnInteraction: false,
+        },
+        speed: 800,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        breakpoints: {
+            0: {
+            slidesPerView: 1,
+            },
+            768: {
+            slidesPerView: 2,
+            },
+            1024: {
+            slidesPerView: 3,
+            }
+        }
+        });
+    });
+</script>
+
+
+
+<script>
+    lucide.createIcons();
+</script>
+
+</html>
+

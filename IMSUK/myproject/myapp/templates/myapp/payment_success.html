@@ -1,0 +1,100 @@
+{% extends 'myapp/base.html' %}
+{% block title %}สำเร็จการสั่งซื้อ | IMSUK{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto mt-10 px-6 py-10 bg-white rounded-3xl shadow-xl border border-pink-100">
+
+  <!-- 🎉 หัวเรื่อง -->
+  <div class="text-center mb-8">
+    <div class="flex justify-center items-center text-green-600 mb-3">
+      <i class="fi fi-rr-badge-check text-4xl"></i>
+    </div>
+    <h1 class="text-3xl font-extrabold text-green-600 mb-2">สำเร็จการสั่งซื้อ</h1>
+    <p class="text-gray-600 text-sm">ขอบคุณที่สั่งอาหารกับ <span class="text-pink-500 font-semibold">IMSUK</span></p>
+  </div>
+
+  <!-- 📄 รายละเอียดคำสั่งซื้อ -->
+  <div class="grid gap-4 text-sm text-gray-700 mb-8">
+    <div class="flex items-center gap-2">
+      <i class="fi fi-rr-receipt text-pink-500"></i>
+      <span class="font-medium text-gray-600">หมายเลขคำสั่งซื้อ:</span> <strong>#{{ order.id }}</strong>
+    </div>
+    <div class="flex items-center gap-2">
+      <i class="fi fi-rr-wallet text-pink-500"></i>
+      <span class="font-medium text-gray-600">ยอดชำระทั้งหมด:</span> <strong>{{ order.total_price|floatformat:2 }} บาท</strong>
+    </div>
+    <div class="flex items-center gap-2">
+      <i class="fi fi-rr-info text-pink-500"></i>
+      <span class="font-medium text-gray-600">สถานะ:</span>
+      {% if order.status == 'paid' %}
+        <span class="text-green-600 font-semibold">ชำระเงินแล้ว</span>
+      {% elif order.payment_slip %}
+        <span class="text-yellow-600 font-semibold">รอตรวจสอบสลิป</span>
+      {% else %}
+        <span class="text-red-600 font-semibold">ยังไม่ชำระเงิน</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- 📷 QR Code -->
+  {% if order.payment_method == 'qr' %}
+  <div class="text-center mb-8">
+    <p class="text-pink-600 text-sm font-medium mb-3 flex items-center justify-center gap-2">
+      <i class="fi fi-rr-qrcode"></i> กรุณาชำระผ่าน PromptPay และอัปโหลดสลิปด้านล่าง
+    </p>
+    <img src="{{ order.qr_image.url }}" alt="QR Code" class="w-60 h-60 mx-auto border rounded-xl shadow-md">
+  </div>
+  {% endif %}
+
+  <!-- 📤 อัปโหลดสลิป -->
+  {% if order.status != 'paid' and not order.payment_slip %}
+  <form method="POST" enctype="multipart/form-data" class="space-y-5">
+    {% csrf_token %}
+    <label for="id_payment_slip" class="block text-sm font-medium text-gray-700 flex items-center gap-2">
+      <i class="fi fi-rr-upload"></i> อัปโหลดสลิปการชำระเงิน
+    </label>
+    <input type="file" name="payment_slip" id="id_payment_slip" required
+           class="block w-full border border-gray-300 rounded-lg shadow-sm px-4 py-2 text-sm text-gray-700 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-300">
+    <div id="preview-container" class="hidden">
+      <p class="text-sm text-gray-600 mt-2">ตัวอย่างภาพที่อัปโหลด:</p>
+      <img id="preview-image" src="#" alt="Preview" class="w-64 mx-auto border rounded-xl shadow mt-2">
+    </div>
+    <button type="submit"
+            class="w-full sm:w-auto bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 rounded-full font-medium shadow transition">
+      ส่งสลิป
+    </button>
+  </form>
+  <script>
+    const fileInput = document.getElementById('id_payment_slip');
+    const previewContainer = document.getElementById('preview-container');
+    const previewImage = document.getElementById('preview-image');
+
+    fileInput.addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          previewImage.src = event.target.result;
+          previewContainer.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+  {% elif order.payment_slip %}
+  <div class="mt-6 text-center">
+    <p class="text-sm text-gray-600 mb-2 flex items-center justify-center gap-2">
+      <i class="fi fi-rr-paperclip"></i> คุณได้อัปโหลดสลิปแล้ว:
+    </p>
+    <img src="{{ order.payment_slip.url }}" alt="สลิป" class="w-64 mx-auto border rounded-xl shadow">
+  </div>
+  {% endif %}
+
+  <!-- 🔗 ลิงก์กลับคำสั่งซื้อ -->
+  <div class="mt-10 text-center">
+    <a href="{% url 'my_orders' %}" class="inline-flex items-center gap-2 text-sm text-pink-600 hover:underline font-medium">
+      <i class="fi fi-rr-document"></i> ไปยังคำสั่งซื้อของฉัน
+    </a>
+  </div>
+</div>
+{% endblock %}
