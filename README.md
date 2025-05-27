@@ -184,6 +184,22 @@ Password: 12345678
 
 ---
 
+## 5.4 การตั้งค่าไฟล์ `.env`
+1. สร้างไฟล์ **`.env`**
+2. เพิ่มตัวแปรสิ่งแวดล้อมต่อไปนี้:
+```env
+SECRET_KEY='your-secret_key'
+GOOGLE_CLIENT_ID='your-client_id'
+GOOGLE_SECRET='your-secret'
+```
+
+## 5.5 วิธีแก้ปัญหา ModuleNotFoundError: No module named 'promptpay'
+หากคุณรัน Jupyter แล้วพบ error นี้
+ให้ทำตามขั้นตอนนี้:
+1. เปิดไฟล์ requirements_jupyter.txt (หรือ requirements.txt ที่ใช้ใน service jupyter)
+2. เพิ่มชื่อไลบรารี promptpay ลงไปในไฟล์นั้น:
+3. สั่ง rebuild docker container 
+
 ## 6. วิดีโอสาธิตการใช้งานระบบ (System Demonstration Video)
 
 สามารถรับชมวิดีโอการใช้งานระบบ IMSUK ได้ที่ลิงก์ด้านล่าง:
