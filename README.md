@@ -198,7 +198,16 @@ GOOGLE_SECRET='your-secret'
 ให้ทำตามขั้นตอนนี้:
 1. เปิดไฟล์ requirements_jupyter.txt (หรือ requirements.txt ที่ใช้ใน service jupyter)
 2. เพิ่มชื่อไลบรารี promptpay ลงไปในไฟล์นั้น:
-3. สั่ง rebuild docker container 
+3. สั่ง rebuild docker container
+
+## 5.6 วิธีแก้ไขปัญหา CRLF ใน `entrypoint.sh`
+เมื่อรัน Docker container ที่ใช้ `entrypoint.sh` ซึ่งถูกสร้างหรือแก้ไขจาก Windows อาจพบข้อผิดพลาด เช่น: $'\r': command not found
+syntax error: unexpected end of file
+วิธีแก้ไข
+1. เปิดไฟล์ `entrypoint.sh` ด้วย Visual Studio Code
+2. สังเกตมุมขวาล่างของหน้าต่าง จะเห็นคำว่า `CRLF`
+3. คลิกที่ `CRLF` แล้วเลือก `LF`
+4. กด `Ctrl + S` เพื่อบันทึกไฟล์ใหม่
 
 ## 6. วิดีโอสาธิตการใช้งานระบบ (System Demonstration Video)
 
